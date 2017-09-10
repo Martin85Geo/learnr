@@ -13,8 +13,8 @@ install_knitr_hooks <- function() {
   
   # helper to check for an exercise chunk
   is_exercise_chunk <- function(options) {
-    print(options[["exercise"]])
-    isTRUE(options[["exercise"]]) 
+    optionVal <- options[["exercise"]]
+    isTRUE(optionVal) || identical(as.symbol("T"), optionVal)
   }
   
   # helper to find chunks that name a chunk as their setup chunk
