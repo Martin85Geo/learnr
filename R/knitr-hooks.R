@@ -13,6 +13,7 @@ install_knitr_hooks <- function() {
   
   # helper to check for an exercise chunk
   is_exercise_chunk <- function(options) {
+    print(options[["exercise"]])
     isTRUE(options[["exercise"]]) 
   }
   
