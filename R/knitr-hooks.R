@@ -14,6 +14,9 @@ install_knitr_hooks <- function() {
   # helper to check for an exercise chunk
   is_exercise_chunk <- function(options) {
     optionVal <- options[["exercise"]]
+    cat("optionVal", optionVal)
+    cat("isTRUE(optionVal)", isTRUE(optionVal))
+    cat('identical(as.symbol("T"), optionVal)', identical(as.symbol("T"), optionVal))
     isTRUE(optionVal) || identical(as.symbol("T"), optionVal)
   }
   
