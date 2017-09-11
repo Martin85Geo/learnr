@@ -13,11 +13,8 @@ install_knitr_hooks <- function() {
   
   # helper to check for an exercise chunk
   is_exercise_chunk <- function(options) {
-    optionVal <- options[["exercise"]]
-    cat("optionVal", optionVal)
-    cat("isTRUE(optionVal)", isTRUE(optionVal))
-    cat('identical(as.symbol("T"), optionVal)', identical(as.symbol("T"), optionVal))
-    isTRUE(optionVal) || identical(as.symbol("T"), optionVal)
+    val <- options[["exercise"]]
+    isTRUE(val) || identical(val, as.symbol("T"))
   }
   
   # helper to find chunks that name a chunk as their setup chunk
@@ -36,7 +33,8 @@ install_knitr_hooks <- function() {
     support_regex <- paste0("-(", paste(type, collapse = "|"), ")$")
     if (grepl(support_regex, options$label)) {
       exercise_label <- sub(support_regex, "", options$label)
-      label_query <- "knitr::all_labels(exercise == TRUE)"
+      # HSW:  add  || to account for exercise=T,F
+      label_query <- 'knitr::all_labels(exercise == TRUE || identical(exercise, as.symbol("T")))'
       all_exercise_labels <- eval(parse(text = label_query))
       exercise_label %in% all_exercise_labels
     }
@@ -98,6 +96,8 @@ install_knitr_hooks <- function() {
         exercise_eval <- FALSE
       
       # look for chunks that name this as their setup chunk
+      # (HSW:  seems we need to modify this, too, if we want to
+      # allow use of exercise.eval = T, F)
       labels <- exercise_chunks_for_setup_chunk(options$label)
       if (grepl("-setup$", options$label))
         labels <- c(labels, sub("-setup$", "", options$label))

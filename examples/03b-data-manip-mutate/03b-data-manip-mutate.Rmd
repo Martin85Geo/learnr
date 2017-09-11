@@ -217,7 +217,7 @@ mutate(flights, dep_time = dep_time %/% 100 * 60 + dep_time %% 100,
 
 Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? How do you explain this?
     
-```{r mutateex2, exercise = T}
+```{r mutateex2, exercise = TRUE}
 # flights <- mutate(flights, total_time = _____________)
 # flight_times <- select(airtime, total_time)
 # filter(flight_times, air_time != total_time)
@@ -265,9 +265,10 @@ filter(flights, delay_rank <= 10)
 
 What does `1:3 + 1:10` return? Why?
 
-```{r mutateex5, exercise = TRUE}
+```{r mutateex5, exercise = T}
     
 ```
+
 ```{r mutateex5-solution}
 1:3 + 1:10
 ```
